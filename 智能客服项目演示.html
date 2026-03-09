@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商智能客服系统升级项目计划</title>
+
+    <!-- Fonts: Bold Signal uses Archivo Black + Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===========================================
+           CSS CUSTOM PROPERTIES (THEME) - Bold Signal
+           =========================================== */
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-gradient: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            --card-bg: #FF5722;
+            --card-bg-alt: #ff7043;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-on-card: #1a1a1a;
+            --accent: #FF5722;
+
+            /* Typography - MUST use clamp() */
+            --font-display: 'Archivo Black', sans-serif;
+            --font-body: 'Space Grotesk', sans-serif;
+            --title-size: clamp(2rem, 6vw, 4.5rem);
+            --h2-size: clamp(1.5rem, 4vw, 2.5rem);
+            --h3-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            --body-size: clamp(0.8rem, 1.3vw, 1.1rem);
+            --small-size: clamp(0.65rem, 0.9vw, 0.85rem);
+
+            /* Spacing - MUST use clamp() */
+            --slide-padding: clamp(1.5rem, 4vw, 3.5rem);
+            --content-gap: clamp(1rem, 2.5vw, 2rem);
+            --element-gap: clamp(0.5rem, 1vw, 1rem);
+
+            /* Animation */
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration-normal: 0.7s;
+        }
+
+        /* ===========================================
+           BASE STYLES
+           =========================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* --- PASTE viewport-base.css CONTENTS HERE --- */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+        }
+
+        :root {
+            --title-size: clamp(1.5rem, 5vw, 4rem);
+            --h2-size: clamp(1.25rem, 3.5vw, 2.5rem);
+            --h3-size: clamp(1rem, 2.5vw, 1.75rem);
+            --body-size: clamp(0.75rem, 1.5vw, 1.125rem);
+            --small-size: clamp(0.65rem, 1vw, 0.875rem);
+            --slide-padding: clamp(1rem, 4vw, 4rem);
+            --content-gap: clamp(0.5rem, 2vw, 2rem);
+            --element-gap: clamp(0.25rem, 1vw, 1rem);
+        }
+
+        .card, .container, .content-box {
+            max-width: min(90vw, 1000px);
+            max-height: min(80vh, 700px);
+        }
+
+        .feature-list, .bullet-list {
+            gap: clamp(0.4rem, 1vh, 1rem);
+        }
+
+        .feature-list li, .bullet-list li {
+            font-size: var(--body-size);
+            line-height: 1.4;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        img, .image-container {
+            max-width: 100%;
+            max-height: min(50vh, 400px);
+            object-fit: contain;
+        }
+
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
+                --title-size: clamp(1.25rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1rem, 3vw, 1.75rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.3rem, 1vw, 0.75rem);
+                --title-size: clamp(1.1rem, 4vw, 2rem);
+                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
+            }
+            .nav-dots, .keyboard-hint, .decorative { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.4rem, 2vw, 1rem);
+                --title-size: clamp(1rem, 3.5vw, 1.5rem);
+                --h2-size: clamp(0.9rem, 2.5vw, 1.25rem);
+                --body-size: clamp(0.65rem, 1vw, 0.85rem);
+            }
+        }
+
+        @media (max-width: 600px) {
+            :root { --title-size: clamp(1.25rem, 7vw, 2.5rem); }
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+
+        /* ===========================================
+           ANIMATIONS
+           =========================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity var(--duration-normal) var(--ease-out-expo),
+                        transform var(--duration-normal) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal:nth-child(1) { transition-delay: 0.1s; }
+        .reveal:nth-child(2) { transition-delay: 0.2s; }
+        .reveal:nth-child(3) { transition-delay: 0.3s; }
+        .reveal:nth-child(4) { transition-delay: 0.4s; }
+        .reveal:nth-child(5) { transition-delay: 0.5s; }
+        .reveal:nth-child(6) { transition-delay: 0.6s; }
+
+        /* ===========================================
+           BOLD SIGNAL SPECIFIC STYLES
+           =========================================== */
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-gradient);
+            color: var(--text-primary);
+        }
+
+        /* Background pattern */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(255, 87, 34, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 87, 34, 0.05) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section number */
+        .section-number {
+            position: absolute;
+            top: var(--slide-padding);
+            left: var(--slide-padding);
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--card-bg);
+            opacity: 0.15;
+            line-height: 1;
+            z-index: 0;
+        }
+
+        /* Navigation breadcrumbs */
+        .nav-breadcrumb {
+            position: absolute;
+            top: var(--slide-padding);
+            right: var(--slide-padding);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .nav-breadcrumb span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-breadcrumb span.active {
+            background: var(--card-bg);
+            transform: scale(1.3);
+        }
+
+        /* Title slide */
+        .title-slide {
+            justify-content: flex-end;
+            padding-bottom: calc(var(--slide-padding) * 2);
+        }
+
+        .title-slide h1 {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            color: var(--text-primary);
+            margin-bottom: var(--element-gap);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .title-slide .subtitle {
+            font-size: var(--h3-size);
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        .title-slide .tagline {
+            display: inline-block;
+            background: var(--card-bg);
+            color: var(--text-on-card);
+            padding: 0.5rem 1.5rem;
+            font-weight: 700;
+            font-size: var(--small-size);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: var(--content-gap);
+        }
+
+        /* Content cards */
+        .content-card {
+            background: var(--card-bg);
+            color: var(--text-on-card);
+            padding: var(--content-gap);
+            border-radius: 8px;
+            margin-top: var(--content-gap);
+        }
+
+        .content-card h3 {
+            font-family: var(--font-display);
+            font-size: var(--h3-size);
+            margin-bottom: var(--element-gap);
+        }
+
+        /* Info grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--content-gap);
+            margin-top: var(--content-gap);
+        }
+
+        .info-item {
+            background: rgba(255,255,255,0.05);
+            padding: var(--element-gap);
+            border-radius: 6px;
+            border-left: 3px solid var(--card-bg);
+        }
+
+        .info-item .label {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-item .value {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            color: var(--text-primary);
+        }
+
+        /* Team grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--element-gap);
+            margin-top: var(--content-gap);
+        }
+
+        .team-member {
+            background: rgba(255,255,255,0.03);
+            padding: var(--element-gap);
+            border-radius: 6px;
+            border-top: 2px solid var(--card-bg);
+        }
+
+        .team-member .name {
+            font-weight: 700;
+            font-size: var(--body-size);
+            color: var(--text-primary);
+        }
+
+        .team-member .role {
+            font-size: var(--small-size);
+            color: var(--card-bg);
+            margin-top: 0.25rem;
+        }
+
+        /* Milestone list */
+        .milestone-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+            margin-top: var(--content-gap);
+        }
+
+        .milestone-item {
+            display: flex;
+            align-items: center;
+            gap: var(--element-gap);
+            padding: var(--element-gap);
+            background: rgba(255,255,255,0.03);
+            border-radius: 6px;
+        }
+
+        .milestone-item .marker {
+            width: 32px;
+            height: 32px;
+            background: var(--card-bg);
+            color: var(--text-on-card);
+            font-family: var(--font-display);
+            font-size: var(--small-size);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .milestone-item .info .title {
+            font-weight: 700;
+            font-size: var(--body-size);
+        }
+
+        .milestone-item .info .desc {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+        }
+
+        /* Tech stack */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--element-gap);
+            margin-top: var(--content-gap);
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: var(--element-gap);
+            padding: var(--element-gap);
+            background: rgba(255,255,255,0.03);
+            border-radius: 6px;
+        }
+
+        .tech-item .icon {
+            width: 40px;
+            height: 40px;
+            background: var(--card-bg);
+            color: var(--text-on-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border-radius: 8px;
+            font-size: var(--small-size);
+        }
+
+        .tech-item .info .name {
+            font-weight: 700;
+            font-size: var(--body-size);
+        }
+
+        .tech-item .info .desc {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+        }
+
+        /* Risk table */
+        .risk-table {
+            width: 100%;
+            margin-top: var(--content-gap);
+            border-collapse: collapse;
+        }
+
+        .risk-table th,
+        .risk-table td {
+            padding: var(--element-gap);
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: var(--body-size);
+        }
+
+        .risk-table th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: var(--small-size);
+            letter-spacing: 0.05em;
+        }
+
+        .risk-table .impact-high {
+            color: #ff6b6b;
+        }
+
+        .risk-table .impact-medium {
+            color: #ffd93d;
+        }
+
+        /* Action items */
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+            margin-top: var(--content-gap);
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            gap: var(--element-gap);
+            padding: var(--element-gap);
+            background: rgba(255,255,255,0.03);
+            border-radius: 6px;
+        }
+
+        .action-item .check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--card-bg);
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        /* ===========================================
+           INLINE EDITING (Opt-In)
+           =========================================== */
+        .edit-hotzone {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80px;
+            height: 80px;
+            z-index: 10000;
+            cursor: pointer;
+        }
+
+        .edit-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 44px;
+            height: 44px;
+            background: var(--card-bg);
+            color: var(--text-on-card);
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .edit-toggle.show,
+        .edit-toggle.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .edit-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Editable elements */
+        [contenteditable="true"] {
+            outline: none;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+
+        [contenteditable="true"]:hover {
+            background: rgba(255, 87, 34, 0.1);
+        }
+
+        [contenteditable="true"]:focus {
+            background: rgba(255, 87, 34, 0.15);
+            box-shadow: 0 0 0 2px var(--card-bg);
+        }
+
+        /* ===========================================
+           PROGRESS BAR & NAV
+           =========================================== */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--card-bg);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-dots button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .nav-dots button.active {
+            background: var(--card-bg);
+            transform: scale(1.5);
+        }
+
+        .keyboard-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            opacity: 0.5;
+            z-index: 100;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .info-grid,
+            .team-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .info-grid,
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Navigation dots -->
+    <nav class="nav-dots" id="navDots"></nav>
+
+    <!-- Keyboard hint -->
+    <div class="keyboard-hint">Use arrow keys or scroll to navigate</div>
+
+    <!-- Edit hotzone & toggle -->
+    <div class="edit-hotzone" id="editHotzone"></div>
+    <button class="edit-toggle" id="editToggle" title="Edit mode (E)">✏️</button>
+
+    <!-- ===========================================
+         SLIDE 1: Title
+         =========================================== -->
+    <section class="slide title-slide">
+        <div class="slide-content">
+            <h1 class="reveal" contenteditable="false">电商智能客服系统升级</h1>
+            <p class="subtitle reveal" contenteditable="false">提升客服自动回复率 50%</p>
+            <span class="tagline reveal" contenteditable="false">项目计划 · 内部评审</span>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 2: 项目概述
+         =========================================== -->
+    <section class="slide">
+        <span class="section-number">01</span>
+        <div class="nav-breadcrumb">
+            <span class="active"></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="slide-content">
+            <h2 class="reveal" contenteditable="false">项目概述</h2>
+            <div class="info-grid">
+                <div class="info-item reveal">
+                    <div class="label">项目类型</div>
+                    <div class="value" contenteditable="true">技术/IT</div>
+                </div>
+                <div class="info-item reveal">
+                    <div class="label">行业</div>
+                    <div class="value" contenteditable="true">零售/电商</div>
+                </div>
+                <div class="info-item reveal">
+                    <div class="label">团队规模</div>
+                    <div class="value" contenteditable="true">6 人</div>
+                </div>
+                <div class="info-item reveal">
+                    <div class="label">预计工期</div>
+                    <div class="value" contenteditable="true">11 周</div>
+                </div>
+                <div class="info-item reveal">
+                    <div class="label">总人天</div>
+                    <div class="value" contenteditable="true">117 人天</div>
+                </div>
+                <div class="info-item reveal">
+                    <div class="label">目标</div>
+                    <div class="value" contenteditable="true">+50%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 3: 团队成员
+         =========================================== -->
+    <section class="slide">
+        <span class="section-number">02</span>
+        <div class="nav-breadcrumb">
+            <span></span><span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="slide-content">
+            <h2 class="reveal" contenteditable="false">团队成员</h2>
+            <div class="team-grid">
+                <div class="team-member reveal">
+                    <div class="name" contenteditable="true">张明</div>
+                    <div class="role" contenteditable="true">项目经理 PM</div>
+                </div>
+                <div class="team-member reveal">
+                    <div class="name" contenteditable="true">李华</div>
+                    <div class="role" contenteditable="true">产品经理</div>
+                </div>
+                <div class="team-member reveal">
+                    <div class="name" contenteditable="true">王强</div>
+                    <div class="role" contenteditable="true">算法工程师</div>
+                </div>
+                <div class="team-member reveal">
+                    <div class="name" contenteditable="true">陈磊</div>
+                    <div class="role" contenteditable="true">后端开发</div>
+                </div>
+                <div class="team-member reveal">
+                    <div class="name" contenteditable="true">赵敏</div>
+                    <div class="role" contenteditable="true">前端开发</div>
+                </div>
+                <div class="team-member reveal">
+                    <div class="name" contenteditable="true">周婷</div>
+                    <div class="role" contenteditable="true">测试工程师 QA</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 4: 里程碑
+         =========================================== -->
+    <section class="slide">
+        <span class="section-number">03</span>
+        <div class="nav-breadcrumb">
+            <span></span><span></span><span class="active"></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="slide-content">
+            <h2 class="reveal" contenteditable="false">里程碑</h2>
+            <div class="milestone-list">
+                <div class="milestone-item reveal">
+                    <div class="marker">M1</div>
+                    <div class="info">
+                        <div class="title" contenteditable="true">项目启动</div>
+                        <div class="desc" contenteditable="true">Day 2 · 项目章程、范围定义</div>
+                    </div>
+                </div>
+                <div class="milestone-item reveal">
+                    <div class="marker">M2</div>
+                    <div class="info">
+                        <div class="title" contenteditable="true">数据分析完成</div>
+                        <div class="desc" contenteditable="true">Day 11 · 分析报告、知识库初稿</div>
+                    </div>
+                </div>
+                <div class="milestone-item reveal">
+                    <div class="marker">M3</div>
+                    <div class="info">
+                        <div class="title" contenteditable="true">核心算法完成</div>
+                        <div class="desc" contenteditable="true">Day 21 · 意图识别+匹配引擎</div>
+                    </div>
+                </div>
+                <div class="milestone-item reveal">
+                    <div class="marker">M4</div>
+                    <div class="info">
+                        <div class="title" contenteditable="true">功能开发完成</div>
+                        <div class="desc" contenteditable="true">Day 34 · 完整对话系统</div>
+                    </div>
+                </div>
+                <div class="milestone-item reveal">
+                    <div class="marker">M5</div>
+                    <div class="info">
+                        <div class="title" contenteditable="true">模型达标</div>
+                        <div class="desc" contenteditable="true">Day 37 · 准确率/召回率达标</div>
+                    </div>
+                </div>
+                <div class="milestone-item reveal">
+                    <div class="marker">M6</div>
+                    <div class="info">
+                        <div class="title" contenteditable="true">上线交付</div>
+                        <div class="desc" contenteditable="true">Day 45 · 正式上线、监控就绪</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 5: 关键技术方案
+         =========================================== -->
+    <section class="slide">
+        <span class="section-number">04</span>
+        <div class="nav-breadcrumb">
+            <span></span><span></span><span></span><span class="active"></span><span></span><span></span><span></span>
+        </div>
+        <div class="slide-content">
+            <h2 class="reveal" contenteditable="false">关键技术方案</h2>
+            <div class="tech-grid">
+                <div class="tech-item reveal">
+                    <div class="icon">AI</div>
+                    <div class="info">
+                        <div class="name" contenteditable="true">意图识别</div>
+                        <div class="desc" contenteditable="true">BERT/RoBERTa 微调</div>
+                    </div>
+                </div>
+                <div class="tech-item reveal">
+                    <div class="icon">🔍</div>
+                    <div class="info">
+                        <div class="name" contenteditable="true">答案检索</div>
+                        <div class="desc" contenteditable="true">向量检索 + BM25 混合</div>
+                    </div>
+                </div>
+                <div class="tech-item reveal">
+                    <div class="icon">📚</div>
+                    <div class="info">
+                        <div class="name" contenteditable="true">知识库</div>
+                        <div class="desc" contenteditable="true">结构化FAQ + 非结构化文档</div>
+                    </div>
+                </div>
+                <div class="tech-item reveal">
+                    <div class="icon">💬</div>
+                    <div class="info">
+                        <div class="name" contenteditable="true">对话管理</div>
+                        <div class="desc" contenteditable="true">状态机 + 强化学习</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 6: 风险与应对
+         =========================================== -->
+    <section class="slide">
+        <span class="section-number">05</span>
+        <div class="nav-breadcrumb">
+            <span></span><span></span><span></span><span></span><span class="active"></span><span></span><span></span>
+        </div>
+        <div class="slide-content">
+            <h2 class="reveal" contenteditable="false">风险与应对</h2>
+            <table class="risk-table reveal">
+                <thead>
+                    <tr>
+                        <th>风险</th>
+                        <th>影响</th>
+                        <th>应对策略</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td contenteditable="true">训练数据不足</td>
+                        <td class="impact-high" contenteditable="true">高</td>
+                        <td contenteditable="true">规则+FAQ兜底，快速积累标注数据</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">意图识别准确率不达标</td>
+                        <td class="impact-high" contenteditable="true">高</td>
+                        <td contenteditable="true">多轮迭代，预留2周调优时间</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">上线后用户不习惯</td>
+                        <td class="impact-medium" contenteditable="true">中</td>
+                        <td contenteditable="true">渐进式推送，提供人工切换入口</td>
+                    </tr>
+                    <tr>
+                        <td contenteditable="true">并发性能</td>
+                        <td class="impact-medium" contenteditable="true">中</td>
+                        <td contenteditable="true">预研阶段做压测，必要时做缓存</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE 7: 下一步
+         =========================================== -->
+    <section class="slide">
+        <span class="section-number">06</span>
+        <div class="nav-breadcrumb">
+            <span></span><span></span><span></span><span></span><span></span><span class="active"></span><span></span>
+        </div>
+        <div class="slide-content">
+            <h2 class="reveal" contenteditable="false">下一步行动</h2>
+            <div class="action-list">
+                <div class="action-item reveal">
+                    <div class="check"></div>
+                    <span contenteditable="true">确认项目范围与需求细节</span>
+                </div>
+                <div class="action-item reveal">
+                    <div class="check"></div>
+                    <span contenteditable="true">完成现有客服数据分析</span>
+                </div>
+                <div class="action-item reveal">
+                    <div class="check"></div>
+                    <span contenteditable="true">启动技术方案设计</span>
+                </div>
+                <div class="action-item reveal">
+                    <div class="check"></div>
+                    <span contenteditable="true">组建开发团队并分配任务</span>
+                </div>
+            </div>
+            <div class="content-card reveal" style="margin-top: var(--content-gap);">
+                <h3 contenteditable="false">下一步</h3>
+                <p contenteditable="true">进入 Phase 2: 项目估算 - 进行精确的工作量和成本估算</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===========================================
+         SLIDE PRESENTATION CONTROLLER
+         =========================================== -->
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.currentSlide = 0;
+                this.isEditing = false;
+                this.setupIntersectionObserver();
+                this.setupKeyboardNav();
+                this.setupTouchNav();
+                this.setupProgressBar();
+                this.setupNavDots();
+                this.setupInlineEditing();
+                this.updateSlide(0);
+            }
+
+            setupIntersectionObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.updateSlide(index);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            updateSlide(index) {
+                this.currentSlide = index;
+                this.updateProgressBar();
+                this.updateNavDots();
+            }
+
+            updateProgressBar() {
+                const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
+                document.getElementById('progressBar').style.width = progress + '%';
+            }
+
+            updateNavDots() {
+                const dots = document.querySelectorAll('.nav-dots button');
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentSlide);
+                });
+            }
+
+            setupKeyboardNav() {
+                document.addEventListener('keydown', (e) => {
+                    if (this.isEditing && e.target.getAttribute('contenteditable') === 'true') {
+                        return;
+                    }
+
+                    switch(e.key) {
+                        case 'ArrowDown':
+                        case 'ArrowRight':
+                        case ' ':
+                        case 'PageDown':
+                            e.preventDefault();
+                            this.nextSlide();
+                            break;
+                        case 'ArrowUp':
+                        case 'ArrowLeft':
+                        case 'PageUp':
+                            e.preventDefault();
+                            this.prevSlide();
+                            break;
+                        case 'Home':
+                            e.preventDefault();
+                            this.goToSlide(0);
+                            break;
+                        case 'End':
+                            e.preventDefault();
+                            this.goToSlide(this.slides.length - 1);
+                            break;
+                    }
+
+                    if ((e.key === 'e' || e.key === 'E')) {
+                        this.toggleEditMode();
+                    }
+
+                    if (e.key === 's' && (e.ctrlKey || e.metaKey)) {
+                        e.preventDefault();
+                        this.saveToLocalStorage();
+                    }
+                });
+            }
+
+            nextSlide() {
+                if (this.currentSlide < this.slides.length - 1) {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            prevSlide() {
+                if (this.currentSlide > 0) {
+                    this.goToSlide(this.currentSlide - 1);
+                }
+            }
+
+            goToSlide(index) {
+                this.slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+
+            setupTouchNav() {
+                let touchStartY = 0;
+                let touchEndY = 0;
+
+                document.addEventListener('touchstart', (e) => {
+                    touchStartY = e.changedTouches[0].screenY;
+                }, { passive: true });
+
+                document.addEventListener('touchend', (e) => {
+                    touchEndY = e.changedTouches[0].screenY;
+                    const diff = touchStartY - touchEndY;
+
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) {
+                            this.nextSlide();
+                        } else {
+                            this.prevSlide();
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            setupProgressBar() {
+                this.updateProgressBar();
+            }
+
+            setupNavDots() {
+                const navDots = document.getElementById('navDots');
+                this.slides.forEach((_, index) => {
+                    const button = document.createElement('button');
+                    button.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                    button.addEventListener('click', () => this.goToSlide(index));
+                    navDots.appendChild(button);
+                });
+            }
+
+            setupInlineEditing() {
+                const hotzone = document.getElementById('editHotzone');
+                const editToggle = document.getElementById('editToggle');
+                let hideTimeout = null;
+
+                hotzone.addEventListener('mouseenter', () => {
+                    clearTimeout(hideTimeout);
+                    editToggle.classList.add('show');
+                });
+
+                hotzone.addEventListener('mouseleave', () => {
+                    hideTimeout = setTimeout(() => {
+                        if (!this.isEditing) editToggle.classList.remove('show');
+                    }, 400);
+                });
+
+                editToggle.addEventListener('mouseenter', () => {
+                    clearTimeout(hideTimeout);
+                });
+
+                editToggle.addEventListener('mouseleave', () => {
+                    hideTimeout = setTimeout(() => {
+                        if (!this.isEditing) editToggle.classList.remove('show');
+                    }, 400);
+                });
+
+                hotzone.addEventListener('click', () => {
+                    this.toggleEditMode();
+                });
+
+                editToggle.addEventListener('click', () => {
+                    this.toggleEditMode();
+                });
+
+                this.loadFromLocalStorage();
+            }
+
+            toggleEditMode() {
+                this.isEditing = !this.isEditing;
+                const editToggle = document.getElementById('editToggle');
+                const editableElements = document.querySelectorAll('[contenteditable]');
+
+                editableElements.forEach(el => {
+                    if (!el.closest('.title-slide')) {
+                        el.contentEditable = this.isEditing;
+                    }
+                });
+
+                editToggle.classList.toggle('active', this.isEditing);
+
+                if (this.isEditing) {
+                    editToggle.classList.add('show');
+                }
+
+                if (this.isEditing) {
+                    this.saveToLocalStorage();
+                }
+            }
+
+            saveToLocalStorage() {
+                const content = {};
+                document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
+                    content[index] = el.innerHTML;
+                });
+                localStorage.setItem('presentation-content', JSON.stringify(content));
+            }
+
+            loadFromLocalStorage() {
+                const saved = localStorage.getItem('presentation-content');
+                if (saved) {
+                    const content = JSON.parse(saved);
+                    document.querySelectorAll('[contenteditable="true"]').forEach((el, index) => {
+                        if (content[index]) {
+                            el.innerHTML = content[index];
+                        }
+                    });
+                }
+            }
+        }
+
+        new SlidePresentation();
+    </script>
+</body>
+</html>
