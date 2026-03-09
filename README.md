@@ -77,6 +77,6 @@ MIT — Use it, modify it, share it.
 
 
 # 将markdown文件转换为HTML
-为了方面对外展示，可以使用github下另一个skills：frontend-slides。
+为了方面对外展示，可以使用github下另一个skills，将markdown格式文件转换为HTML，效果还不错：frontend-slides。
 Created by [@zarazhangrui](https://github.com/zarazhangrui) with Claude Code.
 
