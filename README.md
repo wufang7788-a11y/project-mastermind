@@ -76,7 +76,7 @@ This design follows [OpenAI's harness engineering](https://openai.com/index/harn
 MIT — Use it, modify it, share it.
 
 
-### 将markdown文件转换为HTML
+# 将markdown文件转换为HTML
 为了方面对外展示，可以使用github下另一个skills：frontend-slides。
 Created by [@zarazhangrui](https://github.com/zarazhangrui) with Claude Code.
 
